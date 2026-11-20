@@ -1,0 +1,154 @@
+/* page and colors */
+:root {
+  --night: #192434;       /* backdrop */
+  --paper: rgba(255, 253, 247, 0.96);
+  --ink: #282b2e;
+  --link: #40526a;
+  --glow: #daa85e;        /* Warm golden hover glow */
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 32px; }
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--ink);
+  font-family: "DM Sans", Arial, sans-serif;
+  line-height: 1.86;
+}
+
+/* keep canvas behind cards */
+#starryBackground {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* columns */
+.layout {
+  position: relative;
+  z-index: 1;
+  padding: 48px;
+}
+.toc {
+  font-family: "Pixelify Sans", sans-serif;
+  position: fixed;
+  left: 48px;
+  top: 48px;
+  width: 240px;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  padding: 26px;
+  background: var(--paper);
+  border: 1px solid rgba(255,255,255,.48);
+  border-radius: 16px;
+  box-shadow: 0 12px 34px rgba(0,0,0,.27);
+}
+main {
+  max-width: 800px;
+  margin-left: 290px;
+  margin-right: auto;
+}
+
+/* floating panels */
+.paper-card {
+  margin-bottom: 30px;
+  padding: 44px 52px;
+  background: var(--paper);
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 15px;
+  box-shadow: 0 17px 44px rgba(0, 0, 0, .28);
+  transition: box-shadow .3s ease, transform .3s ease;
+}
+.paper-card:hover {
+  box-shadow: 0 20px 53px rgba(0,0,0,.32), 0 0 22px rgba(218,168,94,.08);
+  transform: translateY(-2px);
+}
+.essay-section p {
+  margin: 0 0 1.55em;
+  font-size: 1rem;
+}
+.essay-section p:last-child { margin-bottom: 0; }
+/* fonts and what not */
+h1, h2 {
+  /*font-family: "Pixelify Sans", sans-serif;*/
+  /*font-family: Calibri, "Carlito", Arial, sans-serif;*/
+  font-family: "Pixelify Sans", sans-serif;
+  white-space: nowrap;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.13;
+  transition: text-shadow .22s ease, color .22s ease;
+}
+h1 { margin: .2em 0 .32em; font-size: 2rem; }
+h2 { margin: 0 0 24px; font-size: clamp(2rem,4vw,2.65rem); }
+h1:hover, h2:hover {
+  color: #5b443b;
+  text-shadow: 1px 2px 2px rgba(90,49,31,.22), 0 0 15px rgba(218,168,94,.6);
+}
+.small-label {
+  text-transform: uppercase;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .15em;
+}
+.subtitle { font-family: "Instrument Serif", Georgia, serif; font-size: 1.55rem; margin: 0; color: #536477; }
+.byline { margin: 30px 0 0; font-size: .79rem; letter-spacing: .02em; color: #69717b; }
+/* content text formatting */
+.toc h2 { font-size: 2.2rem; margin: 6px 0 17px; }
+.toc nav { display: flex; flex-direction: column; gap: 5px; }
+.toc a {
+  padding: 5px 8px;
+  margin-left: -8px;
+  color: var(--link);
+  text-decoration: none;
+  line-height: 1.5;
+  border-radius: 6px;
+  transition: color .2s ease, text-shadow .2s ease, background .2s ease;
+}
+/* glowing words / text shadows */
+.toc a:hover, .toc a:focus-visible {
+  background: rgba(218,168,94,.11);
+  color: #765235;
+  text-shadow: 0 1px 2px rgba(82,49,26,.32), 0 0 11px rgba(218,168,94,.78);
+}
+/* hover in essay */
+.concept {
+  border-bottom: 1px dotted rgba(148,108,61,.65);
+  transition: color .2s ease, text-shadow .2s ease;
+}
+.concept:hover {
+  color: #996d36;
+  text-shadow: 0 0 8px rgba(210,146,53,.5), 0 1px 1px rgba(76,53,34,.18);
+}
+/* hover in side column */
+.concept:target, p:target {
+  scroll-margin-top: 36px;
+  text-shadow: 0 0 14px rgba(222,165,69,.72);
+}
+
+/* Essay text */
+main .paper-card p {
+    font-family: Calibri, "Carlito", Arial, sans-serif;
+    font-size: 12pt;
+    line-height: 2;
+}
+
+.references p { padding-left: 2.2rem; text-indent: -2.2rem; overflow-wrap: anywhere; }
+/* mobile first */
+@media (max-width: 850px) {
+  .layout { padding: 20px; }
+  .toc { position: static; width: auto; max-height: none; margin-bottom: 24px; }
+  main { margin-left: 0; max-width: 780px; }
+  .paper-card { padding: 30px 28px; }
+  .paper-card:hover { transform: none; }
+  .toc nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 12px; }
+}
+@media (max-width: 390px) {
+  .paper-card { padding: 26px 22px; }
+  .toc nav { grid-template-columns: 1fr; }
+  h1 { font-size: 3rem; }
+}
+
